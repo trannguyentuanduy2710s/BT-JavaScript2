@@ -112,7 +112,6 @@ document.getElementById('btnTongtienthue').onclick = function () {
     var thuemacidnh = 4e+6;
 
     var tong = 0;
-    // bai nay sai logic roi, ua may bai nay de ma, y het nhu nhau luon a. Khoan anh em test nó đúng theo mẫu mà ta, em ví dụ cho anh coi ha, ok
 
     if (thunhap > 0 && thunhap < 10e6) {
         alert('Số tiền thu nhập không hợp lệ !!!');
@@ -154,7 +153,7 @@ document.getElementById('btnTongtiencap').onclick = function () {
 
     var soKenhcaocap = +document.getElementById('soKenhcaocap').value;
 
-    var loaikhach = document.getElementById("List").value;
+    var loaikhach = document.getElementById("selectOption").value;
 
     var soKetnoi = document.getElementById("soKetnoi").value;
 
@@ -165,20 +164,29 @@ document.getElementById('btnTongtiencap').onclick = function () {
     var phiHoadon = 4.5;
     var phiDichvu = 20.5;
     var thueKenh = 7.5;
-    if (loaikhach === "1") {
-        tong = phiHoadon + phiDichvu + (soKenhcaocap * thueKenh);
-    } else if (loaikhach === "2") {
-        phiHoadon = 15;
-        if (soKetnoikenh <= 10) {
-            phiDichvu = 75;
-        } else {
-            phiDichvu = 75 + (soKetnoikenh - 10) * 5;
-        }
-        thueKenh = 50 * soKenhcaocap;
+
+    if(loaikhach === "0"){
+        alert('Vui lòng chọn loại khách hàng !!!!');
+        return;
     }
 
+    if (loaikhach === "1") {
+        total = phiHoadon + phiDichvu + (soKenhcaocap * thueKenh);
+    } else if (loaikhach === "2") {
+        phiHoadon = 15;
+        if (soKetnoi <= 10) {
+            phiDichvu = 75;
+        } else {
+            phiDichvu = 75 + (soKetnoi - 10) * 5;
+        }
+        thueKenh = 50 * soKenhcaocap;
+        total = thueKenh + phiDichvu + phiHoadon;
+    }
+
+    total = '\xa0' + "$" +  new Intl.NumberFormat("vn-VN",).format(total) + '\xa0';
+
     document.getElementById('ketqua').innerHTML = "Tổng tiền cáp là:" + total;
-    document.getElementById('makhachhang').innerHTML = "Mã khách hàng:" + maKhachhang;
+    document.getElementById('makhachhang').innerHTML = "Mã khách hàng:" + '\xa0' + maKhachhang;
 
 }
 
